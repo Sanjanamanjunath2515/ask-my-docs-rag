@@ -39,6 +39,9 @@ def get_theme_css(theme: str) -> str:
     upload_btn_text = "#f1f5f9" if dark else "#1e293b"
     upload_btn_border = "rgba(148,163,184,0.4)" if dark else "#cbd5e1"
     upload_icon = "#a5b4fc" if dark else "#6366f1"
+    upload_chip_bg = "rgba(30,41,59,0.55)" if dark else "rgba(255,255,255,0.95)"
+    upload_chip_border = "rgba(129,140,248,0.35)" if dark else "#e2e8f0"
+    upload_chip_hover = "rgba(51,65,85,0.75)" if dark else "#f1f5f9"
 
     # Sidebar brand
     brand_title = "#f8fafc" if dark else "#0f172a"
@@ -227,31 +230,47 @@ section[data-testid="stSidebar"] div[data-testid="stHtml"] .sidebar-brand * {{
     color: {upload_zone_text} !important;
 }}
 
-/* ── Streamlit file uploader (sidebar) — centered layout ── */
-section[data-testid="stSidebar"] [data-testid="stFileUploader"] {{
+/* ── Streamlit file uploader (sidebar) ── */
+section[data-testid="stSidebar"] [data-testid="stFileUploader"],
+section[data-testid="stSidebar"] .stFileUploader {{
     background: transparent !important;
     border-radius: 12px !important;
     width: 100% !important;
+    max-width: 100% !important;
+    overflow: hidden !important;
+    box-sizing: border-box !important;
 }}
-section[data-testid="stSidebar"] [data-testid="stFileUploader"] section {{
-    background: transparent !important;
-    padding: 0 !important;
+section[data-testid="stSidebar"] [data-testid="stFileUploader"] > div,
+section[data-testid="stSidebar"] .stFileUploader > div {{
     width: 100% !important;
+    max-width: 100% !important;
+    min-width: 0 !important;
+    overflow: hidden !important;
+    box-sizing: border-box !important;
+}}
+section[data-testid="stSidebar"] [data-testid="stFileUploader"] section[data-testid="stFileUploader"] {{
+    width: 100% !important;
+    max-width: 100% !important;
+    padding: 0 !important;
 }}
 section[data-testid="stSidebar"] [data-testid="stFileUploaderDropzone"] {{
     background: {upload_drop_bg} !important;
     border: 2px dashed {upload_drop_border} !important;
     border-radius: 14px !important;
     box-shadow: {upload_zone_shadow} !important;
-    padding: 1.25rem 1rem !important;
-    min-height: 140px !important;
+    padding: 0.75rem 0.65rem !important;
+    min-height: 120px !important;
     display: flex !important;
     flex-direction: column !important;
-    align-items: center !important;
-    justify-content: center !important;
-    text-align: center !important;
+    align-items: stretch !important;
+    justify-content: flex-start !important;
+    text-align: left !important;
     width: 100% !important;
+    max-width: 100% !important;
+    min-width: 0 !important;
+    overflow: hidden !important;
     box-sizing: border-box !important;
+    gap: 0.45rem !important;
 }}
 section[data-testid="stSidebar"] [data-testid="stFileUploaderDropzone"]:hover {{
     background: {upload_drop_hover} !important;
@@ -260,12 +279,46 @@ section[data-testid="stSidebar"] [data-testid="stFileUploaderDropzone"]:hover {{
 section[data-testid="stSidebar"] [data-testid="stFileUploaderDropzone"] > div {{
     background: transparent !important;
     width: 100% !important;
+    max-width: 100% !important;
+    min-width: 0 !important;
     display: flex !important;
     flex-direction: column !important;
-    align-items: center !important;
-    justify-content: center !important;
-    text-align: center !important;
-    gap: 0.5rem !important;
+    align-items: stretch !important;
+    justify-content: flex-start !important;
+    text-align: left !important;
+    gap: 0.4rem !important;
+    overflow: hidden !important;
+    box-sizing: border-box !important;
+}}
+/* File list — stFileChips container */
+section[data-testid="stSidebar"] [data-testid="stFileChips"] {{
+    width: 100% !important;
+    max-width: 100% !important;
+    min-width: 0 !important;
+    display: flex !important;
+    flex-direction: column !important;
+    flex-wrap: nowrap !important;
+    align-items: stretch !important;
+    gap: 0.4rem !important;
+    overflow-x: hidden !important;
+    overflow-y: auto !important;
+    max-height: 12rem !important;
+    box-sizing: border-box !important;
+}}
+section[data-testid="stSidebar"] [data-testid="stFileChips"] > div {{
+    display: flex !important;
+    flex-direction: column !important;
+    width: 100% !important;
+    max-width: 100% !important;
+    min-width: 0 !important;
+    gap: 0.35rem !important;
+    align-items: stretch !important;
+}}
+section[data-testid="stSidebar"] [data-testid="stFileChips"] > div > div {{
+    width: 100% !important;
+    max-width: 100% !important;
+    min-width: 0 !important;
+    flex: 0 0 auto !important;
 }}
 section[data-testid="stSidebar"] [data-testid="stFileUploaderDropzoneInstructions"] {{
     display: flex !important;
@@ -289,9 +342,7 @@ section[data-testid="stSidebar"] [data-testid="stFileUploaderDropzoneInstruction
 }}
 section[data-testid="stSidebar"] [data-testid="stFileUploaderDropzoneInstructions"] span,
 section[data-testid="stSidebar"] [data-testid="stFileUploaderDropzoneInstructions"] p,
-section[data-testid="stSidebar"] [data-testid="stFileUploader"] label,
-section[data-testid="stSidebar"] [data-testid="stFileUploader"] small,
-section[data-testid="stSidebar"] [data-testid="stFileUploader"] span {{
+section[data-testid="stSidebar"] [data-testid="stFileUploader"] label {{
     color: {upload_zone_text} !important;
     text-align: center !important;
     width: 100% !important;
@@ -300,54 +351,149 @@ section[data-testid="stSidebar"] [data-testid="stFileUploader"] span {{
     margin-right: auto !important;
     line-height: 1.45 !important;
 }}
-section[data-testid="stSidebar"] [data-testid="stFileUploader"] button {{
+/* Upload / Add button row (empty or with files) */
+section[data-testid="stSidebar"] [data-testid="stFileUploaderDropzone"] > div > button,
+section[data-testid="stSidebar"] [data-testid="stFileUploaderDropzone"] button[kind="secondary"],
+section[data-testid="stSidebar"] [data-testid="stFileUploaderDropzone"] [data-testid="baseButton-secondary"] {{
     background: {upload_btn_bg} !important;
     color: {upload_btn_text} !important;
     border: 1px solid {upload_btn_border} !important;
     border-radius: 8px !important;
     font-weight: 600 !important;
-    display: block !important;
-    margin: 0.5rem auto 0 auto !important;
-    text-align: center !important;
+    flex-shrink: 0 !important;
+    align-self: center !important;
+    margin: 0.25rem auto !important;
     width: auto !important;
-    min-width: 7rem !important;
+    max-width: calc(100% - 1rem) !important;
+    min-width: unset !important;
 }}
-section[data-testid="stSidebar"] [data-testid="stFileUploader"] button:hover {{
+section[data-testid="stSidebar"] [data-testid="stFileUploaderDropzone"] button:hover {{
     background: {upload_drop_hover} !important;
     color: {upload_btn_text} !important;
     border-color: {accent} !important;
 }}
-section[data-testid="stSidebar"] [data-testid="stFileUploader"] button p,
-section[data-testid="stSidebar"] [data-testid="stFileUploader"] button span,
-section[data-testid="stSidebar"] [data-testid="stFileUploader"] button div {{
+section[data-testid="stSidebar"] [data-testid="stFileUploaderDropzone"] button p,
+section[data-testid="stSidebar"] [data-testid="stFileUploaderDropzone"] button span {{
     color: {upload_btn_text} !important;
-    text-align: center !important;
-    justify-content: center !important;
-    margin: 0 auto !important;
+    overflow: hidden !important;
+    text-overflow: ellipsis !important;
+    white-space: nowrap !important;
 }}
-section[data-testid="stSidebar"] [data-testid="stFileUploader"] svg {{
+section[data-testid="stSidebar"] [data-testid="stFileUploaderDropzone"] svg {{
     fill: {upload_icon} !important;
     color: {upload_icon} !important;
-    display: block !important;
-    margin: 0 auto 0.35rem auto !important;
+    flex-shrink: 0 !important;
 }}
 section[data-testid="stSidebar"] [data-testid="stFileUploader"] [data-testid="stMarkdownContainer"] {{
-    text-align: center !important;
     width: 100% !important;
+    max-width: 100% !important;
 }}
 section[data-testid="stSidebar"] [data-testid="stFileUploader"] [data-testid="stMarkdownContainer"] p {{
     color: {upload_zone_text} !important;
-    text-align: center !important;
-    margin: 0 auto !important;
 }}
-/* Uploaded file list in sidebar */
-section[data-testid="stSidebar"] [data-testid="stFileUploader"] [data-testid="stFileUploaderFileName"],
-section[data-testid="stSidebar"] [data-testid="stFileUploader"] [data-testid="stFileUploaderFileName"] span {{
+
+/* ── Uploaded file chips (stFileChip inside dropzone) ── */
+section[data-testid="stSidebar"] [data-testid="stFileChip"] {{
+    width: 100% !important;
+    max-width: 100% !important;
+    min-width: 0 !important;
+    display: flex !important;
+    flex-direction: row !important;
+    align-items: center !important;
+    justify-content: space-between !important;
+    gap: 0.45rem !important;
+    padding: 0.5rem 0.6rem !important;
+    margin: 0 !important;
+    background: {upload_chip_bg} !important;
+    backdrop-filter: blur(8px) !important;
+    -webkit-backdrop-filter: blur(8px) !important;
+    border: 1px solid {upload_chip_border} !important;
+    border-radius: 10px !important;
+    box-shadow: {"0 2px 8px rgba(0,0,0,0.2)" if dark else "0 1px 4px rgba(15,23,42,0.06)"} !important;
+    overflow: hidden !important;
+    box-sizing: border-box !important;
+    flex-shrink: 0 !important;
+    cursor: default !important;
+}}
+section[data-testid="stSidebar"] [data-testid="stFileChip"]:hover {{
+    background: {upload_chip_hover} !important;
+    border-color: {accent} !important;
+}}
+/* Icon column */
+section[data-testid="stSidebar"] [data-testid="stFileChip"] > div:first-child {{
+    flex-shrink: 0 !important;
+}}
+/* Filename + size column */
+section[data-testid="stSidebar"] [data-testid="stFileChip"] > div:nth-child(2) {{
+    flex: 1 1 auto !important;
+    min-width: 0 !important;
+    max-width: 100% !important;
+    overflow: hidden !important;
+    display: flex !important;
+    flex-direction: column !important;
+    align-items: flex-start !important;
+}}
+section[data-testid="stSidebar"] [data-testid="stFileChipName"] {{
     color: {text} !important;
+    width: 100% !important;
+    max-width: 100% !important;
+    min-width: 0 !important;
+    overflow: hidden !important;
+    text-overflow: ellipsis !important;
+    white-space: nowrap !important;
+    display: block !important;
+    line-height: 1.35 !important;
+}}
+section[data-testid="stSidebar"] [data-testid="stFileChip"] > div:nth-child(2) > div:last-child {{
+    color: {muted} !important;
+    overflow: hidden !important;
+    text-overflow: ellipsis !important;
+    white-space: nowrap !important;
+    max-width: 100% !important;
+}}
+/* Remove / delete button */
+section[data-testid="stSidebar"] [data-testid="stFileChipDeleteBtn"] {{
+    flex: 0 0 auto !important;
+    flex-shrink: 0 !important;
+    align-self: center !important;
+    margin: 0 !important;
+}}
+section[data-testid="stSidebar"] [data-testid="stFileChipDeleteBtn"] button {{
+    flex-shrink: 0 !important;
+    margin: 0 !important;
+    padding: 0.25rem !important;
+    min-width: 2rem !important;
+    width: 2rem !important;
+    height: 2rem !important;
+    background: transparent !important;
+    border: none !important;
+    box-shadow: none !important;
+}}
+section[data-testid="stSidebar"] [data-testid="stFileChipDeleteBtn"] button:hover {{
+    background: {upload_drop_hover} !important;
+    border-radius: 6px !important;
+}}
+/* Trailing "Add files" icon button */
+section[data-testid="stSidebar"] [data-testid="stFileUploaderDropzone"] [data-testid="baseButton-borderlessIcon"],
+section[data-testid="stSidebar"] [data-testid="stFileUploaderDropzone"] button[kind="borderlessIcon"] {{
+    flex-shrink: 0 !important;
+    align-self: flex-end !important;
+    margin: 0.15rem 0 0 auto !important;
 }}
 section[data-testid="stSidebar"] .uploadedFile {{
-    background: {upload_drop_bg} !important;
+    background: {upload_chip_bg} !important;
     color: {text} !important;
+    max-width: 100% !important;
+    overflow: hidden !important;
+}}
+
+/* Sidebar width guard on narrow viewports */
+section[data-testid="stSidebar"] {{
+    overflow-x: hidden !important;
+}}
+section[data-testid="stSidebar"] > div {{
+    overflow-x: hidden !important;
+    max-width: 100% !important;
 }}
 
 /* Expanders (sources) */
