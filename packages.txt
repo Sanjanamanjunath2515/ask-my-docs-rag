@@ -1,2 +1,0 @@
-# Streamlit Cloud system packages (if needed for SSL)
-# truststore is installed via requirements.txt
