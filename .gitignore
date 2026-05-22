@@ -1,0 +1,41 @@
+# Environment and secrets
+.env
+.env.local
+*.pem
+
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+.Python
+venv/
+.venv/
+env/
+ENV/
+
+# Data and caches
+data/embedding_cache/
+data/faiss_index/
+data/models/
+*.npy
+*.pkl
+
+# IDE
+.idea/
+.vscode/
+*.swp
+*.swo
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Streamlit
+.streamlit/secrets.toml
+
+# Keep example secrets template tracked
+!.streamlit/secrets.toml.example
+
+# Logs
+*.log
