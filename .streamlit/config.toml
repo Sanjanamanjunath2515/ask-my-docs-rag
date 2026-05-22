@@ -1,8 +1,9 @@
 [theme]
+# Base theme (light). Dark mode styling is applied via custom CSS in app session state.
 primaryColor = "#6366f1"
-backgroundColor = "#0a0e17"
-secondaryBackgroundColor = "#111827"
-textColor = "#f1f5f9"
+backgroundColor = "#f8fafc"
+secondaryBackgroundColor = "#ffffff"
+textColor = "#0f172a"
 font = "sans serif"
 
 [server]

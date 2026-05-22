@@ -26,6 +26,34 @@ def get_theme_css(theme: str) -> str:
     hero_sub = "#cbd5e1" if dark else "#475569"
     stat_value_color = "#a5b4fc" if dark else "#4338ca"
 
+    # Upload section — explicit light/dark (overrides Streamlit default theme)
+    upload_zone_bg = "rgba(30,41,59,0.55)" if dark else "#ffffff"
+    upload_zone_border = "rgba(129,140,248,0.45)" if dark else "#cbd5e1"
+    upload_zone_text = "#e2e8f0" if dark else "#334155"
+    upload_zone_title = "#f8fafc" if dark else "#0f172a"
+    upload_zone_shadow = "0 4px 24px rgba(0,0,0,0.25)" if dark else "0 2px 14px rgba(15,23,42,0.08)"
+    upload_drop_bg = "rgba(15,23,42,0.5)" if dark else "#f8fafc"
+    upload_drop_border = "rgba(148,163,184,0.35)" if dark else "#94a3b8"
+    upload_drop_hover = "rgba(30,41,59,0.7)" if dark else "#eef2ff"
+    upload_btn_bg = "rgba(51,65,85,0.9)" if dark else "#ffffff"
+    upload_btn_text = "#f1f5f9" if dark else "#1e293b"
+    upload_btn_border = "rgba(148,163,184,0.4)" if dark else "#cbd5e1"
+    upload_icon = "#a5b4fc" if dark else "#6366f1"
+
+    # Sidebar brand
+    brand_title = "#f8fafc" if dark else "#0f172a"
+    brand_sub = "#cbd5e1" if dark else "#475569"
+    brand_title_glow = (
+        "0 0 20px rgba(129,140,248,0.55), 0 0 40px rgba(34,211,238,0.15)"
+        if dark
+        else "none"
+    )
+    brand_title_grad = (
+        "linear-gradient(135deg, #f8fafc 0%, #c7d2fe 50%, #67e8f9 100%)"
+        if dark
+        else "linear-gradient(135deg, #0f172a 0%, #4338ca 55%, #0284c7 100%)"
+    )
+
     return f"""
 <style>
 @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap');
@@ -81,6 +109,53 @@ section[data-testid="stSidebar"] [data-testid="stCaptionContainer"] p {{
     color: {muted} !important;
 }}
 
+/* ── Sidebar brand (Ask My Docs) ── */
+.sidebar-brand {{
+    text-align: center !important;
+    padding: 0.5rem 0.5rem 0.9rem !important;
+    margin-bottom: 0.25rem !important;
+}}
+.sidebar-brand-icon {{
+    font-size: 1.5rem !important;
+    line-height: 1.2 !important;
+    display: block !important;
+    margin-bottom: 0.35rem !important;
+    filter: {"drop-shadow(0 0 8px rgba(129,140,248,0.5))" if dark else "none"} !important;
+}}
+.sidebar-brand-title {{
+    font-weight: 800 !important;
+    font-size: 1.08rem !important;
+    line-height: 1.3 !important;
+    margin: 0 !important;
+    padding: 0 !important;
+    color: {brand_title} !important;
+    -webkit-text-fill-color: {brand_title} !important;
+    background: {brand_title_grad} !important;
+    -webkit-background-clip: text !important;
+    background-clip: text !important;
+    filter: {"drop-shadow(0 0 12px rgba(129,140,248,0.45))" if dark else "none"} !important;
+    letter-spacing: -0.02em !important;
+}}
+.sidebar-brand-sub {{
+    font-size: 0.78rem !important;
+    line-height: 1.4 !important;
+    margin: 0.35rem 0 0 0 !important;
+    padding: 0 !important;
+    color: {brand_sub} !important;
+    opacity: 1 !important;
+}}
+section[data-testid="stSidebar"] .sidebar-brand-title {{
+    color: {brand_title} !important;
+    -webkit-text-fill-color: {brand_title} !important;
+}}
+section[data-testid="stSidebar"] .sidebar-brand-sub {{
+    color: {brand_sub} !important;
+    opacity: 1 !important;
+}}
+section[data-testid="stSidebar"] div[data-testid="stHtml"] .sidebar-brand * {{
+    opacity: 1 !important;
+}}
+
 /* Metrics */
 [data-testid="stMetric"] {{
     background: {card} !important;
@@ -129,14 +204,150 @@ section[data-testid="stSidebar"] [data-testid="stCaptionContainer"] p {{
     color: {muted} !important;
 }}
 
-/* File uploader */
-[data-testid="stFileUploader"] {{
-    background: {card} !important;
-    border-radius: 12px !important;
+/* ── Upload zone hint card (custom HTML) ── */
+.upload-zone {{
+    border: 2px dashed {upload_zone_border} !important;
+    border-radius: 14px !important;
+    padding: 0.85rem !important;
+    text-align: center !important;
+    background: {upload_zone_bg} !important;
+    margin-bottom: 0.65rem !important;
+    box-shadow: {upload_zone_shadow} !important;
 }}
-[data-testid="stFileUploader"] label,
-[data-testid="stFileUploader"] small {{
-    color: {text2} !important;
+.upload-zone p {{
+    margin: 0 !important;
+    font-size: 0.82rem !important;
+}}
+.upload-zone-title,
+.upload-zone-title strong {{
+    color: {upload_zone_title} !important;
+    font-weight: 700 !important;
+}}
+.upload-zone-sub {{
+    color: {upload_zone_text} !important;
+}}
+
+/* ── Streamlit file uploader (sidebar) — centered layout ── */
+section[data-testid="stSidebar"] [data-testid="stFileUploader"] {{
+    background: transparent !important;
+    border-radius: 12px !important;
+    width: 100% !important;
+}}
+section[data-testid="stSidebar"] [data-testid="stFileUploader"] section {{
+    background: transparent !important;
+    padding: 0 !important;
+    width: 100% !important;
+}}
+section[data-testid="stSidebar"] [data-testid="stFileUploaderDropzone"] {{
+    background: {upload_drop_bg} !important;
+    border: 2px dashed {upload_drop_border} !important;
+    border-radius: 14px !important;
+    box-shadow: {upload_zone_shadow} !important;
+    padding: 1.25rem 1rem !important;
+    min-height: 140px !important;
+    display: flex !important;
+    flex-direction: column !important;
+    align-items: center !important;
+    justify-content: center !important;
+    text-align: center !important;
+    width: 100% !important;
+    box-sizing: border-box !important;
+}}
+section[data-testid="stSidebar"] [data-testid="stFileUploaderDropzone"]:hover {{
+    background: {upload_drop_hover} !important;
+    border-color: {accent} !important;
+}}
+section[data-testid="stSidebar"] [data-testid="stFileUploaderDropzone"] > div {{
+    background: transparent !important;
+    width: 100% !important;
+    display: flex !important;
+    flex-direction: column !important;
+    align-items: center !important;
+    justify-content: center !important;
+    text-align: center !important;
+    gap: 0.5rem !important;
+}}
+section[data-testid="stSidebar"] [data-testid="stFileUploaderDropzoneInstructions"] {{
+    display: flex !important;
+    flex-direction: column !important;
+    align-items: center !important;
+    justify-content: center !important;
+    text-align: center !important;
+    width: 100% !important;
+    margin: 0 auto !important;
+    padding: 0.25rem 0 0 0 !important;
+}}
+section[data-testid="stSidebar"] [data-testid="stFileUploaderDropzoneInstructions"] > div,
+section[data-testid="stSidebar"] [data-testid="stFileUploaderDropzoneInstructions"] div {{
+    display: flex !important;
+    flex-direction: column !important;
+    align-items: center !important;
+    justify-content: center !important;
+    text-align: center !important;
+    width: 100% !important;
+    margin: 0 auto !important;
+}}
+section[data-testid="stSidebar"] [data-testid="stFileUploaderDropzoneInstructions"] span,
+section[data-testid="stSidebar"] [data-testid="stFileUploaderDropzoneInstructions"] p,
+section[data-testid="stSidebar"] [data-testid="stFileUploader"] label,
+section[data-testid="stSidebar"] [data-testid="stFileUploader"] small,
+section[data-testid="stSidebar"] [data-testid="stFileUploader"] span {{
+    color: {upload_zone_text} !important;
+    text-align: center !important;
+    width: 100% !important;
+    display: block !important;
+    margin-left: auto !important;
+    margin-right: auto !important;
+    line-height: 1.45 !important;
+}}
+section[data-testid="stSidebar"] [data-testid="stFileUploader"] button {{
+    background: {upload_btn_bg} !important;
+    color: {upload_btn_text} !important;
+    border: 1px solid {upload_btn_border} !important;
+    border-radius: 8px !important;
+    font-weight: 600 !important;
+    display: block !important;
+    margin: 0.5rem auto 0 auto !important;
+    text-align: center !important;
+    width: auto !important;
+    min-width: 7rem !important;
+}}
+section[data-testid="stSidebar"] [data-testid="stFileUploader"] button:hover {{
+    background: {upload_drop_hover} !important;
+    color: {upload_btn_text} !important;
+    border-color: {accent} !important;
+}}
+section[data-testid="stSidebar"] [data-testid="stFileUploader"] button p,
+section[data-testid="stSidebar"] [data-testid="stFileUploader"] button span,
+section[data-testid="stSidebar"] [data-testid="stFileUploader"] button div {{
+    color: {upload_btn_text} !important;
+    text-align: center !important;
+    justify-content: center !important;
+    margin: 0 auto !important;
+}}
+section[data-testid="stSidebar"] [data-testid="stFileUploader"] svg {{
+    fill: {upload_icon} !important;
+    color: {upload_icon} !important;
+    display: block !important;
+    margin: 0 auto 0.35rem auto !important;
+}}
+section[data-testid="stSidebar"] [data-testid="stFileUploader"] [data-testid="stMarkdownContainer"] {{
+    text-align: center !important;
+    width: 100% !important;
+}}
+section[data-testid="stSidebar"] [data-testid="stFileUploader"] [data-testid="stMarkdownContainer"] p {{
+    color: {upload_zone_text} !important;
+    text-align: center !important;
+    margin: 0 auto !important;
+}}
+/* Uploaded file list in sidebar */
+section[data-testid="stSidebar"] [data-testid="stFileUploader"] [data-testid="stFileUploaderFileName"],
+section[data-testid="stSidebar"] [data-testid="stFileUploader"] [data-testid="stFileUploaderFileName"] span {{
+    color: {text} !important;
+}}
+section[data-testid="stSidebar"] .uploadedFile {{
+    background: {upload_drop_bg} !important;
+    color: {text} !important;
 }}
 
 /* Expanders (sources) */
@@ -295,19 +506,6 @@ header[data-testid="stHeader"] {{
     background: linear-gradient(90deg, {accent}33, {accent2}33);
     border: 1px solid {border};
     color: {text} !important;
-}}
-.upload-zone {{
-    border: 2px dashed {border};
-    border-radius: 14px;
-    padding: 0.85rem;
-    text-align: center;
-    background: {card};
-    margin-bottom: 0.65rem;
-}}
-.upload-zone p {{
-    margin: 0;
-    color: {text2} !important;
-    font-size: 0.82rem;
 }}
 .app-footer {{
     text-align: center;

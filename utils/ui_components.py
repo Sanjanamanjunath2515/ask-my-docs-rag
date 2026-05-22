@@ -151,18 +151,34 @@ def render_footer() -> None:
     )
 
 
-def render_upload_zone_hint() -> None:
+def render_upload_zone_hint(theme: str = "dark") -> None:
+    """Theme-aware upload hint card above the file uploader."""
+    dark = theme == "dark"
+    bg = "rgba(30,41,59,0.55)" if dark else "#ffffff"
+    border = "rgba(129,140,248,0.45)" if dark else "#cbd5e1"
+    title_c = "#f8fafc" if dark else "#0f172a"
+    sub_c = "#cbd5e1" if dark else "#475569"
+    shadow = "0 4px 24px rgba(0,0,0,0.2)" if dark else "0 2px 14px rgba(15,23,42,0.08)"
     render_html(
-        '<div class="upload-zone">'
-        "<p><strong>Upload PDFs</strong></p>"
-        "<p>Resumes · Papers · Reports · Manuals · Any PDF</p></div>"
+        f'<div class="upload-zone" style="background:{bg};border-color:{border};'
+        f'box-shadow:{shadow};">'
+        f'<p class="upload-zone-title" style="color:{title_c};">'
+        f"<strong>Upload PDFs</strong></p>"
+        f'<p class="upload-zone-sub" style="color:{sub_c};">'
+        f"Resumes · Papers · Reports · Manuals · Any PDF</p></div>"
     )
 
 
-def render_sidebar_brand() -> None:
+def render_sidebar_brand(theme: str = "dark") -> None:
+    """Theme-aware sidebar branding with readable title/subtitle."""
+    dark = theme == "dark"
+    title_c = "#f8fafc" if dark else "#0f172a"
+    sub_c = "#cbd5e1" if dark else "#475569"
     render_html(
-        '<div style="text-align:center;padding:0.4rem 0 0.85rem;">'
-        '<span style="font-size:1.4rem;">📚</span>'
-        '<div style="font-weight:800;font-size:1.05rem;">Ask My Docs</div>'
-        '<div style="font-size:0.78rem;opacity:0.75;">Universal document AI</div></div>'
+        f'<div class="sidebar-brand">'
+        f'<span class="sidebar-brand-icon">📚</span>'
+        f'<div class="sidebar-brand-title" style="color:{title_c};-webkit-text-fill-color:{title_c};">'
+        f"Ask My Docs</div>"
+        f'<div class="sidebar-brand-sub" style="color:{sub_c};opacity:1;">'
+        f"Universal document AI</div></div>"
     )

@@ -129,8 +129,8 @@ def process_documents(uploaded_files: List) -> None:
 
 def render_sidebar() -> None:
     with st.sidebar:
-        render_sidebar_brand()
-        render_upload_zone_hint()
+        render_sidebar_brand(st.session_state.theme)
+        render_upload_zone_hint(st.session_state.theme)
 
         uploaded = st.file_uploader(
             "Drop PDFs here",
@@ -224,8 +224,8 @@ def render_chat() -> None:
 
 def main() -> None:
     init_session_state()
-    inject_theme(st.session_state.theme)
     render_theme_toggle()
+    inject_theme(st.session_state.theme)
 
     try:
         get_embedding_generator()
