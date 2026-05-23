@@ -299,10 +299,7 @@ streamlit run app.py
 ### 🌐 Live application URL
 
 ```
-https://ask-my-docs-rag-8q7akngrahy9pfjw4jpekn.streamlit.app/
-```
-
-> _Replace with your deployed URL after publishing (e.g. `https://ask-my-docs-rag.streamlit.app/`)._
+https://ask-my-docs-rag-8q7akngrahy9pfjw4jpekn.streamlit.io
 
 ---
 
