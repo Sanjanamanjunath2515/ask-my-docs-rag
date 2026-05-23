@@ -298,11 +298,13 @@ streamlit run app.py
 
 ### 🌐 Live application URL
 
-```
+```text
 https://ask-my-docs-rag-8q7akngrahy9pfjw4jpekn.streamlit.io
+```
 
 ---
 
+## 10. Feature Completion Checklist
 ## 10. Feature Completion Checklist
 
 ### ✅ Completed
