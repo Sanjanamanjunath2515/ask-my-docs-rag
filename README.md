@@ -411,16 +411,7 @@ Model: [Lists projects from retrieved chunks only]
 | Item | Link |
 |------|------|
 | **Video demo (Loom / YouTube)** | _https://www.loom.com/share/7eaa69cea39541b089dc9e60b3a4a7e1_ |
-| **Duration suggestion** | 3–5 minutes |
-| **Suggested flow** | Upload → Process → 2–3 questions → show citations → theme toggle |
-
-**Recording checklist:**
-
-- [ ] Show PDF upload in sidebar  
-- [ ] Run **Process Documents**  
-- [ ] Ask 2+ grounded questions  
-- [ ] Expand source citations  
-- [ ] Demonstrate dark/light mode    
+ 
 
 ## 16. Project Structure
 
